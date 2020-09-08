@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :photos
   resources :albums
-  root to: 'home#guest_feed_photo'
+  root 'welcome#index'
   get 'signup', to: 'home#signup'
   get 'login', to: 'home#login'
   get 'feed/photo', to: 'home#feed_photo'
