@@ -1,0 +1,6 @@
+<h2><%= link_to photo.title, photo_path(photo) %></h2>
+
+<p><%= truncate(photo.description, length: 150) %></p>
+
+<p><%= link_to 'Edit', edit_photo_path(photo) %></p>
+<hr>

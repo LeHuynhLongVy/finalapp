@@ -1,0 +1,13 @@
+<h1 class="text-center">Newest albums </h1>
+<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+<div class="row border-top">
+  <% @counter = 1 %>
+  <% if @album %>
+    <% @album.each do |i| %>
+      <div class="col-lg-3 col-md-6 col-sm-12 border border-primary rounded bg-success">
+        <p class="font-weight-bold"> Album <%=@counter%>: <%=i%> </p>
+      </div>
+      <%@counter+=1%>
+    <%end%>
+  <%end%>
+</div>

@@ -1,0 +1,24 @@
+<%- flash.each do |name, message| %>
+<p><i><%= "#{name}: #{message}" %></i></p>
+<% end %>
+
+<%= form_for @album, :html => {:id => "Edit_form"} do |f| %>
+<%= f.text_field :title %>
+<%= submit_tag("Submit new title") %>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#Edit_form').validate({
+      rules:{
+        "album[title]": "required"
+      },
+      messages:{
+        "album[title]": "Please enter title!"
+      }
+    })
+})
+
+</script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
