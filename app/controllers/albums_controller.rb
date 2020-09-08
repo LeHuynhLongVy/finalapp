@@ -4,7 +4,7 @@ def edit
 end
 
 def index
-  @albums = Album.order(created_at: :desc')
+  @albums = Album.order(created_at: :desc)
 end
 
 def show
@@ -30,8 +30,6 @@ def update
     redirect_to action: :edit
     # format.html{ render :action => edit}
   end
-    # redirect_to @album, notice: 'Album title was updated successfully.'
-  # end
 end
 
 private
