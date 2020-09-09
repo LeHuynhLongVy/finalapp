@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   end
 
   def feed_photo
-    @photo=User.first.followings.map { |user| user.photos.all.where(sharingmode:true).order(created_at: :desc)  }.flatten!
+    @photo=current_user.followings.map { |user| user.photos.all.where(sharingmode:true).order(created_at: :desc)  }.flatten!
   end
 
   def discover_photo
@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   end
 
   def feed_album
-    @album=User.first.followings.map { |user| user.albums.all.where(sharingmode:true).order(created_at: :desc)  }.flatten!
+    @album=current_user.followings.map { |user| user.albums.all.where(sharingmode:true).order(created_at: :desc)  }.flatten!
   end
 
   def discover_album
