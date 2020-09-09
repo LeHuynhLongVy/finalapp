@@ -41,17 +41,17 @@
         <div class="form-group mx-5" style="font-size: 16px;">
           <div class="field">
             <%= f.label :firstname, class: "font-weight-bold"%><br />
-            <%= f.text_field :firstname, autofocus: true, autocomplete: "firstname", class: "border rounded-lg form-control pl-3"  %>
+            <%= f.text_field :firstname, autofocus: true, autocomplete: "firstname", placeholder: "First Name", class: "border rounded-lg form-control pl-3"  %>
           </div>
 
           <div class="field">
             <%= f.label :lastname, class: "font-weight-bold" %><br />
-            <%= f.text_field :lastname, autofocus: true, autocomplete: "lastname", class: "border rounded-lg form-control pl-3" %>
+            <%= f.text_field :lastname, autofocus: true, autocomplete: "lastname", placeholder: "Last Name", class: "border rounded-lg form-control pl-3" %>
           </div>
 
           <div class="field">
             <%= f.label :email, class: "font-weight-bold" %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border rounded-lg form-control pl-3" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class: "border rounded-lg form-control pl-3" %>
           </div>
 
           <div class="field">
@@ -59,12 +59,12 @@
             <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em>
             <% end %><br />
-            <%= f.password_field :password, autocomplete: "new-password", id: "user_password", class: "border rounded-lg form-control pl-3" %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder:"Password", id: "user_password", class: "border rounded-lg form-control pl-3" %>
           </div>
 
           <div class="field">
             <%= f.label :password_confirmation, class: "font-weight-bold" %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border rounded-lg form-control pl-3" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Password", class: "border rounded-lg form-control pl-3" %>
           </div>
         </div>
           <div class="actions form-group row justify-content-center">
