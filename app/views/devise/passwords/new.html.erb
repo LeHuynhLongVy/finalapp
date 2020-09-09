@@ -1,16 +1,46 @@
-<h2>Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container-fluid font justify-content-center">
+
+
+  <div class="row" style="height:100px;">
   </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <h2 class="text-center text-primary1-color">Forgot your password?</h2>
+    </div>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+
+  <div class="row justify-content-center">
+    <div class="col-xl-4 col-sm-8 row justify-content-center shadow border rounded bg-grey">
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :id => "reset_form", :class => "mt-5 col-12" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="form-group" style="font-size: 16px;">
+        <div class="field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"border rounded-top form-control" %>
+        </div>
+        </div>
+
+        <div class="actions form-group row justify-content-center">
+          <%= f.submit "Send me reset password instructions", class: "btn chosen col-sm-8 col-lg-9 rounded-lg bg-primary1 text-white font-weight-bold" %>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col-12 row justify-content-center mt-3">
+      <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+    </div>
+    <div class="col-12 row justify-content-center mt-3">
+      <%= link_to "Create an account", new_registration_path(resource_name) %><br />
+    </div>
+    <div class="col-12 row justify-content-center mt-3">
+      <%= link_to "Login", new_session_path(resource_name) %><br />
+    </div>
+
+  </div>
+</div>
