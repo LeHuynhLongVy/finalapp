@@ -40,9 +40,9 @@
         <div class="row justify-content-center">
           <div class="row btn-group my-3">
             <!-- <a class="btn rounded-left chosen border" href="FeedPhotos.html" id="btn-photo">PHOTO</a> -->
-            <%= link_to "PHOTO", guest_photo_path, :class => "btn rounded-left chosen border", :id => "btn-photo" %>
+            <%= link_to "PHOTO", guestphoto_path, :class => "btn rounded-left chosen border", :id => "btn-photo" %>
             <!-- <a class="btn rounded-right chosen border" href="FeedAlbums.html" id="btn-album">ALBUM</a> -->
-            <%= link_to "ALBUM", guest_album_path, :class => "btn rounded-right border", :id => "btn-album" %>
+            <%= link_to "ALBUM", guestalbum_path, :class => "btn rounded-right border", :id => "btn-album" %>
           </div>
         </div>
 
@@ -52,7 +52,7 @@
           <div class="col-lg-5 col-sm-12 bg-grey rounded shadow m-2">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-
+                <%= image_tag("doge.jpg", class: "img-fluid img-thumbnail")%>
                 <!-- <img src="img/doge.jpg" alt="doge" class="img-fluid img-thumbnail"> -->
               </div>
 

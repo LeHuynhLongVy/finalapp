@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   get 'discover/photo', to: 'home#discover_photo'
   get 'discover/album', to: 'home#discover_album'
   get 'newest', to: 'home#newest'
-  get 'guest/photo', to: 'home#guest_feed_photo'
-  get 'guest/album', to: 'home#guest_feed_album'
+  get 'guestphoto', to: 'home#guest_feed_photo'
+  get 'guestalbum', to: 'home#guest_feed_album'
 end
