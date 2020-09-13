@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   # POST /users
   # POST /users.json
+
   def index
     @users = User.all
     render json: @users
   end
 
   def show
-    render json:@users
+    render action: :show
   end
 
   def new

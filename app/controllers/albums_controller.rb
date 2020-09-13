@@ -1,14 +1,14 @@
 class AlbumsController < ApplicationController
 def edit
-  @album = Album.find(params[:id])
 end
 
-def index
-  @albums = Album.order(created_at: :desc)
+def user_album_index
+  @albums = current_user.albums.order(created_at: :desc).limit(10)
 end
+
 
 def show
-  @album = Album.find(params[:id])
+  @photo = current_user.albums.where(id: params[:id]).first
 end
 
 def new
@@ -16,7 +16,7 @@ def new
 end
 
 def update
-  @album = Album.find(params[:id])
+  @photo = current_user.photos.where(id: params[:id]).first
   new_title=params.require(:album).permit(:title)
   @album.title = new_title["title"]
   if @album.valid?
@@ -30,6 +30,18 @@ def update
     redirect_to action: :edit
     # format.html{ render :action => edit}
   end
+end
+
+def feed
+  @album=current_user.followings.map { |user| user.albums.all.where(sharingmode:true).order(created_at: :desc)  }.flatten!
+end
+
+def discover
+  @album = Album.where(sharingmode:true).order(created_at: :desc)
+end
+
+def guest
+  @album = Album.where(sharingmode:true).order(created_at: :desc)
 end
 
 private

@@ -1,17 +1,37 @@
 Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :photos
-  resources :albums
-  root 'home#guest_feed_photo'
-  # root 'welcome#index'
-  get 'signup', to: 'home#signup'
-  get 'login', to: 'home#login'
-  get 'feed/photo', to: 'home#feed_photo'
-  get 'feed/album', to: 'home#feed_album'
-  get 'discover/photo', to: 'home#discover_photo'
-  get 'discover/album', to: 'home#discover_album'
-  get 'newest', to: 'home#newest'
-  get 'guestphoto', to: 'home#guest_feed_photo'
-  get 'guestalbum', to: 'home#guest_feed_album'
+  devise_scope :user do
+    authenticated :user do
+      root :to =>'photos#feed', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root :to => 'photos#guest', as: :unauthenticated_root
+    end
+  end
+
+  resources :users, only: :show do
+    resources :photos, :albums, only: :index
+  end
+
+  resources :photos ,except: ['show'] do
+    collection do
+      get 'feed'
+      get 'discover'
+      get 'guest'
+    end
+  end
+
+  resources :albums ,except: ['show'] do
+    collection do
+      get 'feed'
+      get 'discover'
+      get 'guest'
+    end
+  end
+
+  namespace :admin do
+    resources :users, shallow: true
+  end
 end

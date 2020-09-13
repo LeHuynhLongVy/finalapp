@@ -2,21 +2,22 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'carrierwave', '~> 2.0'
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.10', '>= 4.10.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem "figaro"
+gem 'figaro', '~> 1.2'
 gem 'sidekiq', '~> 6.1', '>= 6.1.2'
-gem 'devise'
+gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'jquery-rails', '~> 4.4'
 gem 'jquery-validation-rails', '~> 1.19'
-
+group :development, :test do
+  gem 'rspec-rails', '~> 4.0.1'
+end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
-# gem 'pg', '~> 1.2', '>= 1.2.3'
-# gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets

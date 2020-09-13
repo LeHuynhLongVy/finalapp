@@ -1,0 +1,95 @@
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
+<div class="container-fluid font justify-content-center">
+  <div class="row bg-primary1">
+    <div class="col-lg-1 col-sm-12 col-12 d-flex justify-content-center">
+      <a class="navbar-brand text-white font-weight-bold" href="#">Fotobook</a>
+    </div>
+
+    <div class="col-lg-7 col-sm-12 col-12">
+      <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
+    </div>
+
+    <% if user_signed_in? %>
+    <% @user_name = current_user.firstname + " " + current_user.lastname%>
+    <% @user_sname = current_user.firstname[0] + current_user.lastname[0] %>
+     <div class="col-lg-3 col-sm-6 col-12 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+         <strong><%= link_to "#{@user_sname}", user_path(id: current_user.id), :class => "btn btn-circle bg-white text-primary1-color" %></strong>
+         <strong><%= link_to "#{@user_name}", user_path(id: current_user.id), :class => "btn navbut border-0" %></strong>
+     </div>
+
+    <div class="col-lg-1 col-sm-6 col-12 d-flex justify-content-center">
+       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+    </div>
+    <% end %>
+  </div>
+
+ <div class="row bg-grey">
+   <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
+     <div class="col-xl-12 col-sm-6 justify-content-sm-center">
+       <%= link_to "Feeds", feed_albums_path, :class => "btn text-secondary"%>
+     </div>
+     <div class="col-xl-12 col-sm-6 justify-content-sm-center">
+       <%= link_to "Discover", discover_photos_path, :class => "btn text-secondary"%>
+     </div>
+   </div>
+
+      <div class="col-xl-8 col-sm-10 col-sm-12 bg-white">
+          <div class="row justify_content_center">
+              <div class="row col mt-5">
+                  <div class="col-3 ">
+                      <div class="row justify-content-center">
+                          <%= image_tag("doge.jpg", class: "img-fluid rounded-circle square")%>
+                      </div>
+
+                  </div>
+
+                  <div class="col-9">
+                      <div class="row">
+                          <button class="btn profile-btn rounded-pill btn-sm font-weight-bold" type="button" name="profile" style="height:30px">Edit Profile</button>
+                      </div>
+                      <div class="row">
+                          <h1 class="font-weight-bold"><%= @user_name %></h1>
+                      </div>
+                      <div class="row">
+                          <div class="col-auto text-primary1-color tab  border-right pl-0 ">
+                              <span class="font-size-lg"><%= current_user.photos.count %></span> PHOTOS
+                          </div>
+                          <div class="col-auto border-right text-secondary ">
+                              <span class="font-size-lg"><%= current_user.albums.count %></span> ALBUMS
+                          </div>
+                          <div class="col-auto border-right text-secondary ">
+                              <span class="font-size-lg"><%= current_user.followings.count %></span> FOLLOWINGS
+                          </div>
+                          <div class="col-auto text-secondary">
+                              <span class="font-size-lg"><%= current_user.followers.count %></span> FOLLOWERS
+                          </div>
+                      </div>
+                      <div class="row justify-content-end">
+                          <%= link_to 'Add photo', new_photo_path, :class => "btn rounded-pill add" %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row ">
+            <% current_user.photos.each do |i| %>
+                  <div class="col-3 justify-content-center text-center mt-3 p-0">
+                      <div class="col-12 square p-0 mx-auto mt-2">
+                          <%= image_tag("#{i.image_url}", class: "image-fluid square")%>
+                          <%= link_to 'Edit', edit_photo_path(id: i.id), :class => "btn rounded-pill btn-sm edit font-size" %>
+                      <div class="lock rounded-circle bg-white">
+                          <img src="https://img.icons8.com/android/24/000000/lock.png" height="15px" width="15px">
+                      </div>
+                      <div class="photo-title">
+                        <%= i.title %>
+                      </div>
+                      </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+      </div>

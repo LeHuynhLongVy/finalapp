@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(version: 2020_09_08_070459) do
     t.index ["user_id"], name: "index_albums_on_user_id"
   end
 
+  create_table "albums_photos", id: false, force: :cascade do |t|
+    t.bigint "album_id", null: false
+    t.bigint "photo_id", null: false
+  end
+
   create_table "follows", force: :cascade do |t|
     t.bigint "follower_id"
     t.bigint "followed_user_id"
