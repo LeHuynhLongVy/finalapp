@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var btnPhoto = $("#btn-photo");
-  var btnAlbum = $("#btn-album")
+  var btnAlbum = $("#btn-album");
   btnPhoto.on({
     "click": function() {
       if (!btnPhoto.hasClass("chosen")){
@@ -8,7 +8,8 @@ $(document).ready(function() {
         btnAlbum.removeClass("chosen")
       }
     }
-  })
+  });
+
   btnAlbum.on({
     "click": function() {
       if (!btnAlbum.hasClass("chosen")){
@@ -16,12 +17,12 @@ $(document).ready(function() {
         btnPhoto.removeClass("chosen")
       }
     }
-  })
+  });
 
-   $(".hback").on("click", function(e){
-       e.preventDefault();
-       window.history.back();
-   });
+  $(".hback").on("click", function(e){
+    e.preventDefault();
+    window.history.back();
+  });
 
   $(".love").on({
     "click": function() {
@@ -36,60 +37,66 @@ $(document).ready(function() {
         $(this).children("span").text(parseInt($(this).children("span").text()) + 1);
       }
     }
-  })
+  });
 
-  $("img").on({
-    "click": function() {
-      var title = $(this).parent().parent().find("div[name='title-post']").html();
-      var source = $(this).attr("src");
-      var description = $(this).parent().parent().find("div[name='description-post']").html()
-      if ($("#btn-photo").hasClass("chosen")) {
-        $("#modal-photo-title").html(title);
-        $("#modal-photo-body").attr("src", source)
-        $("#modal-photo-description").html(description);
-        $("#modal-photo").modal("toggle");
-      }
-      else {
-        $("#modal-album-title").html(title)
-        $("#modal-album-description").html(description)
-        // this is for source of picture in album
-        $("#modal-album").modal("toggle")
-      }
+  $("img").on("click", function() {
+    var options = {
+      "backdrop" : "static",
+      "show":true
     }
-  })
+    var title = $(this).parent().parent().find("div[name='title-post']").html();
+    var source = $(this).attr("src");
+    var description = $(this).parent().parent().find("div[name='description-post']").html()
+    if ($("#btn-photo").hasClass("chosen")) {
+      $("#modal-photo-title").html(title);
+      $("#modal-photo-body").attr("src", source)
+      $("#modal-photo-description").html(description);
+      $("#modal-photo").modal("toggle");
+    }
+    else {
+      $("#modal-album-title").html(title)
+      $("#modal-album-description").html(description)
+      // this is for source of picture in album
+      $("#modal-album").modal("toggle")
+    }
+  });
+
   $("button[name='follow']").on({
     "click": function() {
-      if ($(this).hasClass("followed")) {
-        $(this).removeClass("followed")
-        $(this).addClass("follow")
+      if ($(this).hasClass("following-button")) {
+        $(this).removeClass("following-button")
+        $(this).addClass("follow-button")
         $(this).html("follow")
       }
       else {
-        $(this).removeClass("follow")
-        $(this).addClass("followed")
+        $(this).removeClass("follow-button")
+        $(this).addClass("following-button")
         $(this).html("following")
       }
     }
-  })
-//  $(".tab").on({
-//    "click": function() {
-//      var others = $(".tab").not(this);
-//      setAllTabOff();
-//      $(this).removeClass("text-secondary");
-//      $(this).addClass("text-color");
-//      var tabName = $(this).attr("name") + "-tab"
-//      $("div[name="+tabName+"]").removeClass("d-none")
-//      // $("div[name=tabName]").addClass("d-block")
-//      others.map(function() {
-//        $(this).removeClass("text-color");
-//        $(this).addClass("text-secondary");
-//      })
-//    }
-//  })
-//});
-//function setAllTabOff() {
-//  $("div[name='photos-tab']").addClass("d-none");
-//  $("div[name='albums-tab']").addClass("d-none");
-//  $("div[name='followings-tab']").addClass("d-none");
-//  $("div[name='followers-tab']").addClass("d-none")
+  });
+
+  $(".tab").on({
+    "click": function() {
+      var others = $(".tab").not(this);
+      setAllTabOff();
+      $(this).removeClass("text-secondary");
+      $(this).addClass("text-primary1-color");
+      var tabName = $(this).attr("name") + "-tab"
+      $("div[name="+tabName+"]").removeClass("d-none")
+      // $("div[name=tabName]").addClass("d-block")
+      others.map(function() {
+        $(this).removeClass("text-primary1-color");
+        $(this).addClass("text-secondary");
+      })
+    }
+  });
+
+  function setAllTabOff() {
+    $("div[name='photos-tab']").addClass("d-none");
+    $("div[name='albums-tab']").addClass("d-none");
+    $("div[name='followings-tab']").addClass("d-none");
+    $("div[name='followers-tab']").addClass("d-none")
+  }
+
 })

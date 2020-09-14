@@ -41,6 +41,11 @@ class PhotosController < ApplicationController
     end
   end
 
+  def destroy
+    @photo.destroy
+    redirect_to user_path(id: current_user.id)
+  end
+
   def feed
     @photo=current_user.followings.map { |user| user.photos.all.where(sharingmode:true).order(created_at: :desc).limit(10)  }.flatten!
   end

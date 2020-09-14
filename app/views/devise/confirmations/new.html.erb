@@ -1,7 +1,6 @@
 
 <%= stylesheet_link_tag "style" %>
 <%= javascript_pack_tag "script"%>
-
 <div class="container-fluid font justify-content-center">
 
 
@@ -19,16 +18,16 @@
     <div class="col-xl-4 col-sm-8 row justify-content-center shadow border rounded bg-grey">
 
       <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :id => "resend_form", :class => "mt-5 col-12" }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <div class="form-group" style="font-size: 16px;">
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="form-group" style="font-size: 16px;">
         <div class="field">
           <%= f.email_field :email, placeholder: "Your email here", autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class:"border rounded-top form-control" %>
         </div>
-        </div>
+      </div>
 
-        <div class="actions form-group row justify-content-center">
-          <%= f.submit "Resend confirmation instructions", class: "btn chosen col-sm-8 col-lg-9 rounded-lg bg-primary1 text-white font-weight-bold" %>
-        </div>
+      <div class="actions form-group row justify-content-center">
+        <%= f.submit "Resend confirmation instructions", class: "btn chosen col-sm-8 col-lg-9 rounded-lg bg-primary1 text-white font-weight-bold" %>
+      </div>
       <% end %>
 
     </div>

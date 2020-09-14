@@ -11,9 +11,9 @@
       <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
     </div>
 
-      <div class="col-lg-4 col-sm-2 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
-          <%= link_to "Login", new_user_session_path, :class => 'navbar-link btn navbut' %><br />
-      </div>
+    <div class="col-lg-4 col-sm-2 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link btn navbut' %><br />
+    </div>
   </div>
 
   <div class="row" style="height:100px;">
@@ -35,9 +35,9 @@
 
   <div class="row justify-content-center">
     <div class="col-xl-2 col-sm-8 row justify-content-center shadow border rounded bg-grey">
-        <div class="col-12 row justify-content-center mt-5" >
-            <img class="rounded-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
-        </div>
+      <div class="col-12 row justify-content-center mt-5" >
+        <img class="rounded-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
+      </div>
       <!-- <form class="mt-5 col" action="#" method="post">
         <div class="form-group" style="font-size: 16px;">
           <input type="text" name="email"  id="email" placeholder="Email" class="border rounded-top form-control " style="height:50px" autofocus/>
@@ -60,28 +60,28 @@
       </div>
 
 
-        <div class="actions form-group row justify-content-center">
-          <%= f.submit "Login", class: "btn chosen col-5 rounded-lg bg-primary1 text-white font-weight-bold" %>
-        </div>
+      <div class="actions form-group row justify-content-center">
+        <%= f.submit "Login", class: "btn chosen col-5 rounded-lg bg-primary1 text-white font-weight-bold" %>
+      </div>
 
       <% end %>
 
 
       <!-- <#%= render "devise/shared/links" %> -->
 
-        <div class="col-12 row justify-content-center mb-2">
-            <!-- <a href="#" class="text-color">Forgot password?</a> -->
-            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-              <%= link_to "Forgot password?", new_password_path(resource_name) %><br />
-            <% end %>
-        </div>
+      <div class="col-12 row justify-content-center mb-2">
+        <!-- <a href="#" class="text-color">Forgot password?</a> -->
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+        <%= link_to "Forgot password?", new_password_path(resource_name) %><br />
+        <% end %>
+      </div>
     </div>
-        <div class="col-12 row justify-content-center mt-3">
-          <!-- <a href="#" class="text-color">Create an account</a> -->
-          <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-            <%= link_to "Create an account", new_registration_path(resource_name) %><br />
-          <% end %>
-        </div>
+    <div class="col-12 row justify-content-center mt-3">
+      <!-- <a href="#" class="text-color">Create an account</a> -->
+      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <%= link_to "Create an account", new_registration_path(resource_name) %><br />
+      <% end %>
+    </div>
   </div>
 </div>
 <script type="text/javascript">

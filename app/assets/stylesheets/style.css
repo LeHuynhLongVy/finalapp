@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-
 .bg-primary1 {
   background-color: rgb(60, 90, 154);
 }
@@ -53,6 +52,11 @@
 
 .btn a{
   text-decoration: none;
+}
+
+strong > a {
+  text-decoration: none;
+  color:inherit;
 }
 
 .chosen {
@@ -255,11 +259,16 @@ img-mng {
 }
 
 .thumb-container:hover .thumb-image:nth-child(1), .thumb-container:hover .thumb-image:nth-child(2)  {
-        transform: rotateZ(0deg);
+  transform: rotateZ(0deg);
 }
 
-.tab {
-  font-weight: bold;
+li > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li > a:hover {
+  text-decoration: none;
 }
 
 .images-container{

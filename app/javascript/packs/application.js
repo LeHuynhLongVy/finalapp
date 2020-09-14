@@ -12,6 +12,7 @@ require('jquery')
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 import 'bootstrap'
+//= require bootstrap-modal
 import './src/application.scss'
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
