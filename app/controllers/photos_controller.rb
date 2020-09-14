@@ -51,11 +51,11 @@ class PhotosController < ApplicationController
   end
 
   def discover
-    @photo = Photo.where(sharingmode:true).order(created_at: :desc).limit(10)
+    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).limit(10)
   end
 
   def guest
-    @photo = Photo.where(sharingmode:true).order(created_at: :desc).limit(10)
+    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).limit(10)
   end
 
   private

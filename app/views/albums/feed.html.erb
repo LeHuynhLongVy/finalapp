@@ -54,9 +54,9 @@
                 <div class="row">
                   <div class="col-lg-6 col-sm-12 thumb-container album-thumb1">
                     <div class="col-12 images-container square mx-auto mt-3">
-                      <%= image_tag("sekiro1.jpg", class: "thumb-image image-fluid square")%>
-                      <%= image_tag("sekiro1.jpg", class: "thumb-image image-fluid square")%>
-                      <%= image_tag("sekiro1.jpg", class: "thumb-image image-fluid square")%>
+                      <%= image_tag "doge.jpg", {class: "thumb-image image-fluid square", "data-toggle": "modal", "data-target": "#modal-album"}%>
+                      <%= image_tag "doge.jpg", {class: "thumb-image image-fluid square", "data-toggle": "modal", "data-target": "#modal-album"}%>
+                      <%= image_tag "doge.jpg", {class: "thumb-image image-fluid square", "data-toggle": "modal", "data-target": "#modal-album"}%>
                     </div>
                   </div>
 
@@ -120,11 +120,12 @@
       </div>
     </div>
 
+    <% @album.each do |i| %>
     <div id="modal-album" class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header border-0">
-            <p class="modal-title font-weight-bold" id="modal-album-title"></p>
+            <p class="modal-title font-weight-bold" id="modal-album-title"><%= i.title %></p>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -133,13 +134,13 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <%= image_tag("doge.jpg", class: "d-block w-100")%>
+                  <%= image_tag "doge.jpg", {class: "d-block w-100", "data-toggle": "modal", "data-target": "#modal-album"}%>
                 </div>
                 <div class="carousel-item">
-                  <%= image_tag("sekiro1.jpg", class: "d-block w-100")%>
+                  <%= image_tag "sekiro1.jpg", {class: "d-block w-100", "data-toggle": "modal", "data-target": "#modal-album"}%>
                 </div>
                 <div class="carousel-item">
-                  <%= image_tag("sekiro2.jpg", class: "d-block w-100")%>
+                  <%= image_tag "sekiro2.jpg", {class: "d-block w-100", "data-toggle": "modal", "data-target": "#modal-album"}%>
                 </div>
               </div>
               <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -151,8 +152,9 @@
                 <span class="sr-only">Next</span>
               </a>
             </div>
-            <p id="modal-album-description" style="font-size:10px" class="pt-2"></p>
+            <p id="modal-album-description" style="font-size:10px" class="pt-2"><%= i.description %> </p>
           </div>
         </div>
       </div>
     </div>
+    <% end %>

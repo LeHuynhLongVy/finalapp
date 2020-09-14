@@ -16,7 +16,7 @@ def new
 end
 
 def update
-  @photo = current_user.photos.where(id: params[:id]).first
+  @album = current_user.photos.where(id: params[:id]).first
   new_title=params.require(:album).permit(:title)
   @album.title = new_title["title"]
   if @album.valid?
@@ -37,11 +37,11 @@ def feed
 end
 
 def discover
-  @album = Album.where(sharingmode:true).order(created_at: :desc)
+  @album = Album.all.where(sharingmode:true).order(created_at: :desc)
 end
 
 def guest
-  @album = Album.where(sharingmode:true).order(created_at: :desc)
+  @album = Album.all.where(sharingmode:true).order(created_at: :desc)
 end
 
 private

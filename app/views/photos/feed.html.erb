@@ -52,7 +52,7 @@
           <div class="col-lg-5 col-sm-12 bg-grey rounded shadow m-2">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <%= image_tag("doge.jpg", class: "img-fluid img-thumbnail")%>
+                <%= image_tag "doge.jpg", {class: "img-fluid img-thumbnail", "data-toggle": "modal", "data-target": "#modal-photo"}%>
               </div>
 
               <div class="col-lg-6 col-sm-12 ">
@@ -105,7 +105,6 @@
   </div>
 </div>
 
-
 <% @photo.each do |i| %>
 <div id="modal-photo" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -124,40 +123,3 @@
   </div>
 </div>
 <% end %>
-
-<div id="modal-album" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header border-0">
-        <p class="modal-title font-weight-bold" id="modal-album-title"></p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body my-n1 py-0">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <%= image_tag("doge.jpg", class: "d-block w-100")%>
-            </div>
-            <div class="carousel-item">
-              <%= image_tag("sekiro1.jpg", class: "d-block w-100")%>
-            </div>
-            <div class="carousel-item">
-              <%= image_tag("sekiro2.jpg", class: "d-block w-100")%>
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-        <p id="modal-album-description" style="font-size:10px" class="pt-2"></p>
-      </div>
-    </div>
-  </div>
-</div>
