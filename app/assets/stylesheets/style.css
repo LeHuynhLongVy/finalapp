@@ -214,11 +214,13 @@ img-mng {
   position: relative;
   height: 250px;
   background-color: #eaeaea;
+  width: 250px;
 }
 
 .album-thumb1{
   position: relative;
   height: 250px;
+  width: 250px;
 }
 
 .album-thumb .thumb-container {
@@ -276,7 +278,6 @@ li > a:hover {
 }
 
 .images-container .thumb-image {
-
   position: absolute;
   top: 0;
   left: 0;

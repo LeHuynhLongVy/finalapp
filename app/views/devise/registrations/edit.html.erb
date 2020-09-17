@@ -1,43 +1,159 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
+<div class="container-fluid font justify-content-center">
+  <div class="row bg-primary1">
+    <div class="col-lg-1 col-sm-12 col-12 d-flex justify-content-center">
+      <a class="navbar-brand text-white font-weight-bold" href="#">Fotobook</a>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="col-lg-7 col-sm-12 col-12">
+      <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <% if user_signed_in? %>
+    <% @user_name = current_user.firstname + " " + current_user.lastname%>
+    <% @user_sname = current_user.firstname[0] + current_user.lastname[0] %>
+    <div class="col-lg-3 col-sm-6 col-12 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+      <strong><%= link_to "#{@user_sname}", user_path(id: current_user.id), :class => "btn btn-circle bg-white text-primary1-color" %></strong>
+      <strong><%= link_to "#{@user_name}", user_path(id: current_user.id), :class => "btn navbut border-0" %></strong>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <div class="col-lg-1 col-sm-6 col-12 d-flex justify-content-center">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+    </div>
     <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+
+  <div class="row bg-grey">
+    <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
+      <div class="col-xl-12 col-sm-6 justify-content-sm-center">
+        <%= link_to "Feeds", feed_albums_path, :class => "btn text-secondary"%>
+      </div>
+      <div class="col-xl-12 col-sm-6 justify-content-sm-center">
+        <%= link_to "Discover", discover_photos_path, :class => "btn text-secondary"%>
+      </div>
+    </div>
+
+    <div class="col-xl-8 col-sm-10 col-sm-12 ">
+      <div class="col bg-white my-3">
+        <div class="row">
+          <div class="col">
+            <div class="font-weight-bold border-bottom py-3">
+              Edit <%= resource_name.to_s.humanize %> Profile
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 row justify-content-center mt-5">
+          <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
+            <div class="col row mx-5">
+              <div class="col">
+              </div>
+              <div class="col-7 m-2">
+                <%= image_tag "doge.jpg", class: "img-fluid img-thumbnail", style: "width:150px;height:150px;"%>
+                <button type="button" class="btn change px-3 position-absolute" style="left:40px; bottom:10px;">CHANGE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id:"edit-form"}) do |f| %>
+
+        <div class="col-12 row justify-content-center">
+          <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
+            <div class="col row mx-5">
+              <div class="col">
+              </div>
+
+              <div class="col-7 m-2 ">
+                <h5 class="text-primary1-color ">Basic Information</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 row justify-content-center">
+          <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div class="col m-0 justify-content-center">
+            <div class="row field" style="font-size: 16px;">
+              <%= f.label :firstname, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+              <%= f.text_field :firstname, autofocus: true, placeholder:"firstname", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+            </div>
+
+            <div class="row field" style="font-size: 16px;">
+              <%= f.label :lastname, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+              <%= f.text_field :lastname, autofocus: true, placeholder:"lastname", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+            </div>
+
+
+            <div class="row field" style="font-size: 16px;">
+              <%= f.label :email, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+              <%= f.email_field :email, autofocus: true, placeholder: "someone@example.com", class: "col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+            </div>
+
+            <div class="row form-group mx-5 actions" style="font-size: 16px;">
+              <div class="col-5">
+
+              </div>
+              <%= f.submit "Save", class: "btn add px-3" %>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 row justify-content-center">
+          <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
+            <div class="col row mx-5">
+              <div class="col">
+              </div>
+
+              <div class="col-7 m-2 ">
+                <h5 class="text-primary1-color ">Password</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 row justify-content-center">
+          <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
+            <div class = "col m-0 justify-content-center">
+              <div class="row field" style="font-size: 16px;">
+                <%= f.label :current_password, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+                <%= f.password_field :current_password, autofocus: true, autocomplete: "Password", placeholder:"********", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+              </div>
+
+              <div class="row field" style="font-size: 16px;">
+                <%= f.label :password, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+                <%= f.password_field :password, autofocus: true, autocomplete: "Password", placeholder: "********", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+              </div>
+
+              <div class="row field" style="font-size: 16px;">
+                <%= f.label :password_confirmation, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
+                <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "Password", placeholder:"********", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>
+              </div>
+
+
+
+
+              <div class="row form-group mx-5 actions" style="font-size: 16px;">
+                <div class="col-5">
+
+                </div>
+                <%= f.submit "Save", class: "btn add px-3" %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<script type="text/javascript">
+  <%= render "validate.js" %>
+</script>

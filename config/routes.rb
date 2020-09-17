@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: :show do
-    resources :photos, :albums, only: :index
+    resources :photos, :albums, only: [:new, :create]
   end
 
-  resources :photos ,except: ['show'] do
+  resources :photos, :albums, only: [:edit, :update, :destroy] do
     collection do
       get 'feed'
       get 'discover'
@@ -23,15 +23,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :albums ,except: ['show'] do
-    collection do
-      get 'feed'
-      get 'discover'
-      get 'guest'
-    end
-  end
+  post 'follow', to: 'users#follow'
+  post 'like', to: 'users#like'
 
   namespace :admin do
-    resources :users, shallow: true
+    resources :albums, except: [:new, :create, :show]
+    resources :photos, except: [:new, :create, :show]
+    resources :users, except: [:new, :create, :show]
   end
 end

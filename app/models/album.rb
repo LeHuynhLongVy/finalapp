@@ -10,7 +10,7 @@ class Album < ApplicationRecord
       self.description = "This is album of user has id " + self.user_id.to_s
     end
   end
-  has_and_belongs_to_many :photos
+  has_many :photos, dependent: :destroy
   belongs_to :user
   has_many :likes, as: :likeable
 end

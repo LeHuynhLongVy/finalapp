@@ -1,0 +1,197 @@
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
+<div class="container-fluid font justify-content-center">
+  <div class="row bg-primary1">
+    <div class="col-lg-1 col-sm-12 col-12 d-flex justify-content-center">
+      <a class="navbar-brand text-white font-weight-bold" href="#">Fotobook</a>
+    </div>
+
+    <div class="col-lg-7 col-sm-12 col-12">
+      <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
+    </div>
+
+    <% if user_signed_in? %>
+    <% @user_name = current_user.firstname + " " + current_user.lastname%>
+    <% @user_sname = current_user.firstname[0] + current_user.lastname[0] %>
+    <div class="col-lg-3 col-sm-6 col-12 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+      <strong><%= link_to "#{@user_sname}", user_path(id: current_user.id), :class => "btn btn-circle bg-white text-primary1-color" %></strong>
+      <strong><%= link_to "#{@user_name}", user_path(id: current_user.id), :class => "btn navbut border-0" %></strong>
+    </div>
+
+    <div class="col-lg-1 col-sm-6 col-12 d-flex justify-content-center">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="row bg-grey">
+    <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Feeds", feed_albums_path, :class => "btn text-secondary"%>
+      </div>
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Discover", discover_photos_path, :class => "btn text-secondary"%>
+      </div>
+    </div>
+
+    <div class="col-xl-8 col-sm-10 col-sm-12 bg-white">
+      <div class="row justify_content_center">
+        <div class="row col mt-5">
+          <div class="col-lg-3 col-sm-12 ">
+            <div class="row justify-content-center">
+              <%= image_tag (if @user.avatar.file.present? then @user.avatar.url else "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?w=415" end), { class:"img-fluid rounded-circle square" } %>
+            </div>
+
+          </div>
+
+          <div class="col-lg-9 col-sm-12">
+            <div class="row d-flex justify-content-sm-center justify-content-lg-start">
+              <% if @user.id != current_user.id %>
+              <% if followed?(current_user, @user) %>
+              <%= link_to "following", follow_path(id: @user.id), method: :post, remote: true, name:"follow", class:"btn following-button py-0 rounded-pill"%>
+              <% else %>
+              <%= link_to "follow", follow_path(id: @user.id), method: :post, remote: true, name:"follow", class:"btn follow-button py-0 rounded-pill"%>
+              <% end %>
+              <% end %>
+            </div>
+            <div class="row justify-content-sm-center justify-content-lg-start">
+              <h1 class="font-weight-bold"><%= @user.firstname + " " + @user.lastname%></h1>
+            </div>
+            <div class="row justify-content-sm-center justify-content-lg-start">
+
+              <ul class="nav nav-pills" role="tablist">
+                <div class="col-auto border-right pl-0 text-primary1-color tab d-flex justify-content-center" name="photos">
+                  <li role="presentation"><a href="#photos" role="tab" data-toggle="tab"><span name="num-photos" class="font-size-lg"><%= @user.photos.count %></span> PHOTOS</a></li>
+                </div>
+                <div class="col-auto border-right text-secondary tab d-flex justify-content-center" name="albums">
+                  <li role="presentation"><a href="#albums" aria-controls="home" role="tab" data-toggle="tab"><span name="num-photos" class="font-size-lg"><%= @user.albums.count %></span> AlBUMS</a></li>
+                </div>
+                <div class="col-auto border-right text-secondary tab d-flex justify-content-center" name="followings">
+                  <li role="presentation"><a href="#followings" aria-controls="home" role="tab" data-toggle="tab"><span name="num-photos" class="font-size-lg"><%= @user.followings.count %></span> FOLLOWINGS</a></li>
+                </div>
+                <div class="col-auto text-secondary tab d-flex justify-content-center" name="followers">
+                  <li role="presentation"><a href="#followers" aria-controls="home" role="tab" data-toggle="tab"><span name="num-photos" class="font-size-lg"><%= @user.followers.count %></span> FOLLOWER</a></li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHOTO TAB -->
+      <div class="row-cols-lg-4 row-cols-sm-1 row-cols-md-2 row col">
+        <% @user.photos.where(sharingmode: true).each do |i| %>
+        <div class="col-3 justify-content-center text-center mt-3 p-0" name="photos-tab">
+          <div class="col-12 square p-0 mx-auto mt-2">
+            <%= image_tag("#{i.image_url}", class: "image-fluid square")%>
+            <div class="photo-title">
+              <%= i.title %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+
+      <!-- ALBUM TAB -->
+      <% @user.albums.where(sharingmode: true).each do |i| %>
+      <div class="d-none col-3 justify-content-center thumb thumb-container album-thumb1 text-center mt-3 p-0" name="albums-tab">
+        <div class="col-12 images-container square p-0 mx-auto mt-3">
+          <%= image_tag("#{i.photos.first.image_url}", class: "thumb-image image-fluid square")%>
+          <%= image_tag("#{i.photos.first.image_url}", class: "thumb-image image-fluid square")%>
+          <%= image_tag("#{i.photos.first.image_url}", class: "thumb-image image-fluid square")%>
+          <div class="photo-count">
+            <div class="content">
+              <div class="number">
+                <%= i.photos.count %>
+              </div>
+              <div class="label">
+                PHOTOS
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="photo-title mt-2">
+          <p> <%= i.title %> </p>
+        </div>
+      </div>
+      <%end%>
+
+      <!-- FOLLOWER TAB -->
+      <% @user.followers.each do |i| %>
+      <div class="d-none col-3 p-2" name="followers-tab">
+        <div class="row justify-content-center text-center m-0  bg-grey shadow rounded ">
+          <div class="col-12 mt-3 justify-content-center">
+            <%= image_tag (if i.avatar.file.present? then i.avatar.url else "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?w=415" end), { class:"img-fluid rounded-circle square-sm" } %>
+          </div>
+
+          <div class="my-2 justify-content-center col-12">
+            <strong><%= link_to "#{i.firstname + " " + i.lastname}", user_path(id: i.id) %></strong>
+          </div>
+
+          <div class="justify-content-center row col-12 ">
+            <div class="col">
+              <div class="row justify-content-center text-primary1-color font-weight-bold font-size-lg"><%=i.photos.count%></div>
+              <div class="row justify-content-center text-primary1-color font-size">PHOTOS</div>
+            </div>
+
+            <div class="col">
+              <div class="row justify-content-center text-primary1-color font-weight-bold font-size-lg"><%= i.albums.count%></div>
+              <div class="row justify-content-center text-primary1-color font-size">ALBUMS</div>
+            </div>
+          </div>
+
+          <div class="col-12  my-2">
+            <% if i.id != current_user.id %>
+            <% if followed?(current_user, i) %>
+            <%= link_to "following", follow_path(id: i.id), method: :post, remote: true, name:"follow", class:"btn following-button py-0 rounded-pill"%>
+            <% else %>
+            <%= link_to "follow", follow_path(id: i.id), method: :post, remote: true, name:"follow", class:"btn follow-button py-0 rounded-pill"%>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <!-- FOLLOWING TAB -->
+      <% @user.followings.each do |i| %>
+      <div class="d-none col-3 p-2" name="followings-tab">
+        <div class="row justify-content-center text-center m-0  bg-grey shadow rounded ">
+          <div class="col-12 mt-3 justify-content-center">
+            <%= image_tag (if i.avatar.file.present? then i.avatar.url else "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?w=415" end), { class:"img-fluid rounded-circle square-sm" } %>
+          </div>
+
+          <div class="my-2 justify-content-center col-12">
+            <strong><%= link_to "#{i.firstname + " " + i.lastname}", user_path(id: i.id) %></strong>
+          </div>
+
+          <div class="justify-content-center row col-12 ">
+            <div class="col">
+              <div class="row justify-content-center text-primary1-color font-weight-bold font-size-lg"><%=i.photos.count%></div>
+              <div class="row justify-content-center text-primary1-color font-size">PHOTOS</div>
+            </div>
+
+            <div class="col">
+              <div class="row justify-content-center text-primary1-color font-weight-bold font-size-lg"><%= i.albums.count%></div>
+              <div class="row justify-content-center text-primary1-color font-size">ALBUMS</div>
+            </div>
+          </div>
+
+          <div class="col-12  my-2">
+            <% if i.id != current_user.id %>
+            <% if followed?(current_user, i) %>
+            <%= link_to "following", follow_path(id: i.id), method: :post, remote: true, name:"follow", class:"btn following-button py-0 rounded-pill"%>
+            <% else %>
+            <%= link_to "follow", follow_path(id: i.id), method: :post, remote: true, name:"follow", class:"btn follow-button py-0 rounded-pill"%>
+            <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>

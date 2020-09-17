@@ -1,39 +1,25 @@
 class PhotosController < ApplicationController
 
-
-  def index
-    @photos = current_user.photos.order(created_at: :desc)
-  end
-
-  def show
-    @photo = Photo.find(params[:id])
-    # photo = current_user.photos.where(id: current_user.id).first
-  end
-
   def new
-    @photo = Photo.new
+    @photo = current_user.photos.new
   end
 
   def create
 
-    @photo = Photo.new(photo_params)
-    @photo.user_id=current_user.id
-
+    @photo = current_user.photos.new(photo_params)
     if @photo.save
       redirect_to user_path(id: current_user.id)
-
     else
       redirect_to action: :new
     end
   end
 
   def edit
-    @photo = Photo.find(params[:id])
+    @photo = current_user.photos.find(params[:id])
   end
 
   def update
-    @photo = Photo.find(params[:id])
-
+    @photo = current_user.photos.find(params[:id])
     if @photo.update_attributes(photo_params)
       redirect_to user_path(id: current_user.id)
     else
@@ -42,24 +28,26 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @photo.destroy
+    @photo = current_user.photos.find(params[:id])
+    Photo.destroy(@photo.id)
     redirect_to user_path(id: current_user.id)
   end
 
   def feed
-    @photo=current_user.followings.map { |user| user.photos.all.where(sharingmode:true).order(created_at: :desc).limit(10)  }.flatten!
+    @photo=Photo.where(user_id: current_user.followings.ids,sharingmode: true).order(created_at: :desc).page(params[:page]).per(8)
   end
 
   def discover
-    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).limit(10)
+    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).page(params[:page]).per(8)
   end
 
   def guest
-    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).limit(10)
+    @photo = Photo.all.where(sharingmode:true).order(created_at: :desc).page(params[:page]).per(8)
   end
 
   private
   def photo_params
-    params.require(:photo).permit(:title, :description, :image)
+  params.require(:photo).permit(:title, :description, :sharingmode, :image)
   end
+
 end

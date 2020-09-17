@@ -11,6 +11,7 @@ gem 'sidekiq', '~> 6.1', '>= 6.1.2'
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'jquery-rails', '~> 4.4'
 gem 'jquery-validation-rails', '~> 1.19'
+gem 'haml', '~> 5.1', '>= 5.1.2'
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
 end

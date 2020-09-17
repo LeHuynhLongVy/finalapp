@@ -39,9 +39,7 @@
       <div class="col bg-white my-3">
         <div class="row justify-content-center">
           <div class="row btn-group my-3">
-            <!-- <a class="btn rounded-left chosen border" href="FeedPhotos.html" id="btn-photo">PHOTO</a> -->
             <%= link_to "PHOTO", discover_photos_path, :class => "btn rounded-left chosen border", :id => "btn-photo" %>
-            <!-- <a class="btn rounded-right chosen border" href="FeedAlbums.html" id="btn-album">ALBUM</a> -->
             <%= link_to "ALBUM", discover_albums_path, :class => "btn rounded-right border", :id => "btn-album" %>
           </div>
         </div>
@@ -54,17 +52,21 @@
           <div class="col-lg-5 col-sm-12 bg-grey rounded shadow m-2">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <!-- <img src="img/doge.jpg" alt="doge" class="img-fluid img-thumbnail"> -->
-                <%= image_tag "doge.jpg", {class: "img-fluid img-thumbnail", "data-toggle": "modal", "data-target": "#modal-photo"}%>
-                <!-- image_tag("doge.jpg", class: "img-fluid img-thumbnail") -->
+                <%= image_tag (if i.image.file.present? then i.image.url else "doge.jpg" end), { class:"img-fluid img-thumbnail", "data-toggle": "modal", "data-target": "#modal-photo-#{i.id}" } %>
               </div>
 
               <div class="col-lg-6 col-sm-12 ">
                 <div class="row">
                   <div class="col-sm-12">
                     <button class="btn-circle chosen border"><%= @author_sname %></button>
-                    <%= link_to "#{@author_name}", user_path(id: i.user_id), :class => "btn font-size" %>
-                    <span class="float-right my-1"><button class="btn btn-sm font-size-sm following-button rounded-pill" name="follow">Following</button></span>
+                    <%= link_to "#{@author_name}", user_path(id: i.user_id), :class => "btn font-size mb-1 p-0" %>
+                    <% if i.user_id != current_user.id %>
+                    <% if followed?(current_user, i.user) %>
+                    <%= link_to "following", follow_path(id: i.user_id), method: :post, remote: true, name:"follow", class:"btn btn-sm font-size-sm following-button float-right my-1 rounded-pill"%>
+                    <% else %>
+                    <%= link_to "follow", follow_path(id: i.user_id), method: :post, remote: true, name:"follow", class:"btn btn-sm font-size-sm follow-button float-right my-1 rounded-pill"%>
+                    <% end %>
+                    <% end %>
                   </div>
 
                 </div>
@@ -77,9 +79,14 @@
                   <%= i.description%>
                 </div>
 
-                <div class="row">
+                <div class="row ">
                   <div class="col-6 py-2 text-primary1-color font-size love">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="13" height="13" fill="rgb(60, 90, 154)"><path fill-rule="evenodd" d="M7.655 14.916L8 14.25l.345.666a.752.752 0 01-.69 0zm0 0L8 14.25l.345.666.002-.001.006-.003.018-.01a7.643 7.643 0 00.31-.17 22.08 22.08 0 003.433-2.414C13.956 10.731 16 8.35 16 5.5 16 2.836 13.914 1 11.75 1 10.203 1 8.847 1.802 8 3.02 7.153 1.802 5.797 1 4.25 1 2.086 1 0 2.836 0 5.5c0 2.85 2.045 5.231 3.885 6.818a22.075 22.075 0 003.744 2.584l.018.01.006.003h.002z"></path></svg><span><%= i.likes.count %></span>
+                    <% if liked?(current_user, i) %>
+                    <%= link_to raw('<i class="fas fa-heart text-primary1-color"></i>'), like_path(type:'Photo', post_id: i.id, user_id: current_user.id), method: :post, remote: true, name:"like" %>
+                    <% else %>
+                    <%= link_to raw('<i class="fas fa-heart text-secondary"></i>'), like_path(type:'Photo', post_id: i.id, user_id: current_user.id), method: :post, remote: true, name:"like" %>
+                    <% end %>
+                    <span><%= i.likes.count %></span>
                   </div>
                   <div class="col-6 py-2 text-secondary text-right font-size-sm py-2">
                     <%= i.created_at%>
@@ -92,21 +99,20 @@
           <% end %>
         </div>
 
-        <div class="row bg-white mt-5 justify-content-center " style="height:50px">
-          <div class="spinner-border text-secondary" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
+        <div class="row bg-white mt-5 justify-content-center" style="height:50px">
+          <%= paginate @photo%>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-lg-2 col-md-0">
-    </div>
+  <div class="col-lg-2 col-md-0">
   </div>
 </div>
 
+
 <% @photo.each do |i| %>
-<div id="modal-photo" class="modal" tabindex="-1" role="dialog">
+<div id="modal-photo-<%=i.id%>" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header border-0">
@@ -116,7 +122,7 @@
         </button>
       </div>
       <div class="modal-body my-n1 py-0">
-        <img src="" class="img" id="modal-photo-body" style="width:100%"/>
+        <%= image_tag (if i.image.file.present? then i.image.url else "doge.jpg" end), { class:"img-fluid img-thumbnail", "data-toggle": "modal", "data-target": "#modal-photo-#{i.id}" } %>
         <p id="modal-photo-description" style="font-size:10px" class="pt-2"><%=i.description%></p>
       </div>
     </div>

@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
+<div class="container-fluid font justify-content-center">
+  <div class="row bg-primary1">
+    <div class="col-lg-2 col-sm-12 col-12 d-flex justify-content-center">
+      <a class="navbar-brand text-white font-weight-bold" href="#">Fotobook Admin</a>
+    </div>
+
+    <div class="col-lg-7 col-sm-12 col-12">
+      <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
+    </div>
+
+    <% if user_signed_in? %>
+    <% @user_name = current_user.firstname + " " + current_user.lastname%>
+    <% @user_sname = current_user.firstname[0] + current_user.lastname[0] %>
+    <div class="col-lg-2 col-sm-6 col-12 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+      <strong><%= link_to "#{@user_sname}", user_path(id: current_user.id), :class => "btn btn-circle bg-white text-primary1-color" %></strong>
+      <strong><%= link_to "#{@user_name}", user_path(id: current_user.id), :class => "btn navbut border-0" %></strong>
+    </div>
+
+    <div class="col-lg-1 col-sm-6 col-12 d-flex justify-content-center">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="row bg-grey">
+    <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Photos", admin_photos_path, :class => "btn text-secondary font-weight-bold"%>
+      </div>
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Albums", admin_albums_path, :class => "btn text-secondary font-weight-bold"%>
+      </div>
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Users", admin_users_path, :class => "btn text-primary1-color font-weight-bold"%>
+      </div>
+    </div>
+
+    <div class="col-xl-8 col-sm-10 col-sm-12 bg-white">
+      <div class="row-cols-lg-4 row-cols-sm-1 justify-content-center row-cols-md-2 col-12">
+        <table class="table table-borderless mw-100" >
+           <thead>
+           <tr>
+               <th class="border-bottom">First Name</th>
+               <th class="border-bottom">Last Name</th>
+               <th class="border-bottom">Email</th>
+               <th class="border-bottom">Last Login</th>
+               <th class="border-bottom"> </th>
+           </tr>
+           </thead>
+           <% @user.each do |i| %>
+           <tbody>
+           <tr>
+               <td><%= i.firstname %></td>
+               <td><%= i.lastname %></td>
+               <td><%= i.email %></td>
+               <td><%= i.created_at %></td>
+               <td>
+                 <%= link_to "Edit", edit_admin_user_path(i.id), :class => "btn add py-0"%>
+                 <%= link_to "Delete", admin_users_path, :class => "btn delete py-0", method: :delete%>
+               </td>
+           </tr>
+           </tbody>
+           <% end %>
+       </table>
+
+      </div>
+      <div class="row bg-white mt-5 justify-content-center" style="height:50px">
+        <%= paginate @user%>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-0">
+
+    </div>
+  </div>
+</div>

@@ -19,25 +19,27 @@ $(document).ready(function() {
     }
   });
 
-  $(".hback").on("click", function(e){
-    e.preventDefault();
-    window.history.back();
-  });
+  // $(".hback").on("click", function(e){
+  //   e.preventDefault();
+  //   window.history.back();
+  // });
 
-  $(".love").on({
-    "click": function() {
-      var icon = $(this).children("svg");
-      var fill_color = icon.attr("fill");
-      if (fill_color == "rgb(60, 90, 154)"){
-        $(icon).attr("fill","lightgrey");
-        $(this).children("span").text(parseInt($(this).children("span").text()) - 1);
-      }
-      else {
-        $(icon).attr("fill", "rgb(60, 90, 154)");
-        $(this).children("span").text(parseInt($(this).children("span").text()) + 1);
-      }
-    }
-  });
+  $("a[name='like']").on({
+   "click": function() {
+     var count = $(this).next();
+
+     if ($(this).children().hasClass("text-primary1-color")) {
+       $(this).children().removeClass("text-primary1-color");
+       $(this).children().addClass("text-secondary");
+       count.text(parseInt(count.text())-1);
+     }
+     else {
+       $(this).children().removeClass("text-secondary");
+       $(this).children().addClass("text-primary1-color");
+       count.text(parseInt(count.text())+1);
+     }
+   }
+ })
 
   $("img").on("click", function() {
     var title = $(this).parent().parent().find("div[name='title-post']").html();
@@ -56,7 +58,7 @@ $(document).ready(function() {
     }
   });
 
-  $("button[name='follow']").on({
+  $("[name='follow']").on({
     "click": function() {
       if ($(this).hasClass("following-button")) {
         $(this).removeClass("following-button")
