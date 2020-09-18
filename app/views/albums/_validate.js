@@ -1,6 +1,6 @@
-$("#new_photo_form").validate({
+$("#new_album_form").validate({
   errorPlacement: function (error, element) {
-    error.insertAfter(element);
+    error.insertAfter(element.parent().parent());
   },
   rules: {
     "photo[title]": {

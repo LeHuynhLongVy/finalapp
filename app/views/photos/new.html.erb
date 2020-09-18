@@ -37,53 +37,53 @@
 
     <div class="col-xl-8 col-sm-10 col-sm-12 ">
       <div class="col bg-white my-3">
-          <div class="row">
-              <div class="col">
-                  <div class="font-weight-bold border-bottom py-3">
-                      New Photo
-                  </div>
-              </div>
-          </div>
-          <%= form_for @photo, url: user_photos_path, :html => {id: "new_photo_form"} do |f|%>
-          <div class="row">
-            <div class="col px-3">
-              <div class="form-group-vertical mt-5">
-                <%= f.label :title %>
-                <%= f.text_field :title, id: "title", placeholder: "Photo Title", class: "form-control col-11" %>
-              </div>
-
-              <div class="form-group-vertical py-5">
-                <%= f.label :sharingmode %>
-                <%= f.select :sharingmode, [['Public', true], ['Private', false]], class: "col-3 custom-select"%>
-              </div>
-            </div>
-
-            <div class="col px-3">
-              <div class="form-group-vertical mt-5">
-                <%= f.label :description %>
-                <%= f.text_area :description, id: "description", rows:"6", placeholder: "Photo Description", class: "form-control" %>
-              </div>
+        <div class="row">
+          <div class="col">
+            <div class="font-weight-bold border-bottom py-3">
+              New Photo
             </div>
           </div>
-
-          <div class="row px-3 my-3">
-              <div class="form-group-vertical bg-grey rounded add-photo" style="background-image:url(<%= image_url('Plus.jpg') %>); background-size:cover;">
-              <%= f.file_field :image, id: "newPhoto", style: "opacity:0; height:200px; width:200px" %>
-            </div>
-          </div>
-          <div class="row px-3 my-5">
-            <%= submit_tag "Save", class: "btn add px-3"%>
-          </div>
-          <% end %>
         </div>
+        <%= form_for @photo, url: user_photos_path, :html => {id: "new_photo_form"} do |f|%>
+        <div class="row">
+          <div class="col px-3">
+            <div class="form-group-vertical mt-5">
+              <%= f.label :title %>
+              <%= f.text_field :title, id: "title", placeholder: "Photo Title", class: "form-control col-11" %>
+            </div>
+
+            <div class="form-group-vertical py-5">
+              <%= f.label :sharingmode %>
+              <%= f.select :sharingmode, [['Public', true], ['Private', false]], class: "col-3 custom-select"%>
+            </div>
+          </div>
+
+          <div class="col px-3">
+            <div class="form-group-vertical mt-5">
+              <%= f.label :description %>
+              <%= f.text_area :description, id: "description", rows:"6", placeholder: "Photo Description", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row px-3 my-3">
+          <div class="form-group-vertical bg-grey rounded add-photo" style="background-image:url(<%= image_url('Plus.jpg') %>); background-size:cover;">
+            <%= f.file_field :image, id: "newPhoto", style: "opacity:0; height:200px; width:200px" %>
+          </div>
+        </div>
+        <div class="row px-3 my-5">
+          <%= submit_tag "Save", class: "btn add px-3"%>
+        </div>
+        <% end %>
       </div>
+    </div>
 
     <div class="col-xl-2 col-sm-0">
 
-      </div>
     </div>
   </div>
+</div>
 
-  <script type="text/javascript">
-    <%= render "validate.js" %>
-  </script>
+<script type="text/javascript">
+  <%= render "validate.js" %>
+</script>

@@ -43,7 +43,7 @@ private
     def follow_user
       params.require(:id)
     end
-    
+
     def like_post
       { :likeable_type => params.require(:type), :likeable_id => params.require(:post_id), :user_id => params.require(:user_id) }
     end

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dzbklzwfa
+  api_key: '127568621586559'
+  api_secret: rW227XEVrH-tzm2xKABzO13790I
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: dzbklzwfa
+  api_key: '127568621586559'
+  api_secret: rW227XEVrH-tzm2xKABzO13790I
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: dzbklzwfa
+  api_key: '127568621586559'
+  api_secret: rW227XEVrH-tzm2xKABzO13790I
+  enhance_image_tag: true
+  static_file_support: false
