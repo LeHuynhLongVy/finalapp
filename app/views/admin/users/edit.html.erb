@@ -24,7 +24,6 @@
     <% end %>
   </div>
 
-
   <div class="row bg-grey">
     <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
       <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
@@ -44,7 +43,7 @@
           <div class="col">
             <div class="font-weight-bold border-bottom py-3">
               Edit User Profile
-              <button type="button" class="btn float-right hback">Back</button>
+              <a class="btn float-right hback" href="<%=admin_users_path%>" >Back</a>
             </div>
           </div>
         </div>
@@ -76,7 +75,7 @@
 
         <div class="col-12 row justify-content-center">
           <div class="col-lg-9 col-sm-12 col-12 row justify-content-center">
-            <%= form_for @user, html: { method: :put, class: "col justify-content-center", id:"edit-form"} do |f| %>
+            <%= form_for @user, url: admin_user_path, html: { method: :put, class: "col justify-content-center", id:"edit-form"} do |f| %>
             <div class="row form-group mx-5 field" style="font-size: 16px;">
               <%= f.label :firstname, class: "col font-weight-bold d-flex justify-content-end mt-3" %><br />
               <%= f.text_field :firstname, autofocus: true, placeholder:"firstname", class:"col-7 border rounded-lg form-control pl-3", style: "height:50px" %>

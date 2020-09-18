@@ -48,9 +48,9 @@
             <% end %>
           </div>
           <div class="images-container mt-4 square">
-            <%= image_tag("sekiro1.jpg", class: "thumb-image square img-fluid")%>
-            <%= image_tag("sekiro1.jpg", class: "thumb-image square img-fluid")%>
-            <%= image_tag("sekiro1.jpg", class: "thumb-image square img-fluid")%>
+            <%= image_tag(if i.photos.first.image.file.present? then i.photos.first.image.url else "doge.jpg" end, class: "thumb-image square img-fluid")%>
+            <%= image_tag(if i.photos.first.image.file.present? then i.photos.first.image.url else "doge.jpg" end, class: "thumb-image square img-fluid")%>
+            <%= image_tag(if i.photos.first.image.file.present? then i.photos.first.image.url else "doge.jpg" end, class: "thumb-image square img-fluid")%>
           </div>
         </div>
 

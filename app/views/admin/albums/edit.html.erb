@@ -1,0 +1,98 @@
+<%= stylesheet_link_tag "style" %>
+<%= javascript_pack_tag "script"%>
+<div class="container-fluid font justify-content-center">
+  <div class="row bg-primary1">
+    <div class="col-lg-1 col-sm-12 col-12 d-flex justify-content-center">
+      <a class="navbar-brand text-white font-weight-bold" href="#">Fotobook</a>
+    </div>
+
+    <div class="col-lg-7 col-sm-12 col-12">
+      <input class="col rounded border-0 my-1 py-1" type="text" placeholder="Search Photo / Album" />
+    </div>
+
+    <% if user_signed_in? %>
+    <% @user_name = current_user.firstname + " " + current_user.lastname%>
+    <% @user_sname = current_user.firstname[0] + current_user.lastname[0] %>
+    <div class="col-lg-3 col-sm-6 col-12 d-flex justify-content-lg-end justify-content-sm-center justify-content-center">
+      <strong><%= link_to "#{@user_sname}", user_path(id: current_user.id), :class => "btn btn-circle bg-white text-primary1-color" %></strong>
+      <strong><%= link_to "#{@user_name}", user_path(id: current_user.id), :class => "btn navbut border-0" %></strong>
+    </div>
+
+    <div class="col-lg-1 col-sm-6 col-12 d-flex justify-content-center">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link btn navbut'  %>
+    </div>
+    <% end %>
+  </div>
+
+
+  <div class="row bg-grey">
+    <div class="col-xl-2 col-sm-12 pt-4 align-items-center ">
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Photos", admin_photos_path, :class => "btn text-secondary font-weight-bold"%>
+      </div>
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Albums", admin_albums_path, :class => "btn text-primary1-color font-weight-bold"%>
+      </div>
+      <div class="col-xl-12 col-sm-12 justify-content-sm-center text-sm-center text-lg-left">
+        <%= link_to "Manage Users", admin_users_path, :class => "btn text-secondary font-weight-bold"%>
+      </div>
+    </div>
+
+    <div class="col-xl-8 col-sm-10 col-sm-12 ">
+      <div class="col bg-white my-3">
+          <div class="row">
+              <div class="col">
+                  <div class="font-weight-bold border-bottom py-3">
+                      Edit Album
+                      <a class="btn float-right hback" href="<%=admin_albums_path%>" >Back</a>
+                  </div>
+              </div>
+          </div>
+          <%= form_for @photo, url: admin_album_path, method: :put do |f|%>
+          <div class="row">
+            <div class="col px-3">
+              <div class="form-group-vertical mt-5">
+                <%= f.label :title %>
+                <%= f.text_field :title, placeholder: "Photo Title", class: "form-control col-11", value:@album.title %>
+              </div>
+
+              <div class="form-group-vertical py-5">
+                <%= f.label :sharingmode %>
+                <%= f.select :sharingmode, [['Public', true], ['Private', false]], class: "col-3 custom-select"%>
+              </div>
+            </div>
+
+            <div class="col px-3">
+              <div class="form-group-vertical mt-5">
+                <%= f.label :description %>
+                <%= f.text_area :description, rows:"6", placeholder: "Photo Description", class: "form-control", value:@album.description %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row my-3 justify-content-start ">
+            <% @album.photos.each do |p| %>
+            <div class="mx-2 position-relative" style = " height:200px; width:200px">
+              <%= link_to raw('<i class="fas fa-times text-white fa-lg"></i>'), admin_photo_path(p.id), class:"position-absolute", style:"top:0;right:0;",method: :delete %>
+              <%= image_tag p.image.url, style: " height:200px; width:200px"%>
+            </div>
+
+            <% end %>
+
+            <div class=" mx-2 form-group-vertical bg-grey rounded add-photo" style="background-image:url(<%= image_url('Plus.jpg') %>); background-size:cover;">
+              <%= f.file_field :image, id: "newAlbum", style: "opacity:0; height:200px; width:200px" %>
+            </div>
+          </div>
+          <div class="row px-3 my-5">
+            <%= submit_tag "Save", class: "btn add px-3"%>
+            <%= link_to raw('<svg xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"/></svg>Delete'), admin_album_path, {class: "btn delete px-3 mx-5", method: :delete}%>
+          </div>
+          <% end %>
+        </div>
+      </div>
+
+    <div class="col-xl-2 col-sm-0">
+
+      </div>
+    </div>
+  </div>

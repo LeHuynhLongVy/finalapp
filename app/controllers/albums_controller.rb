@@ -4,7 +4,6 @@ def new
 end
 
 def create
-
   @album = current_user.albums.new(album_params)
   if @album.save
     @photo=@album.photos.new(photo_params)
@@ -45,8 +44,15 @@ def destroy
     redirect_to action: :edit
   end
 end
+
 def feed
-  @album=Album.where(user_id: current_user.followings.ids,sharingmode: true).order(created_at: :desc).page(params[:page]).per(8)
+  if(user_signed_in?)
+    if current_user.admin == true
+      redirect_to admin_photos_path
+    else
+      @album=Album.where(user_id: current_user.followings.ids,sharingmode: true).order(created_at: :desc).page(params[:page]).per(8)
+    end
+  end
 end
 
 def discover

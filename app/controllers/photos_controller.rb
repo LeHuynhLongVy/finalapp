@@ -34,7 +34,13 @@ class PhotosController < ApplicationController
   end
 
   def feed
-    @photo=Photo.where(user_id: current_user.followings.ids,sharingmode: true).order(created_at: :desc).page(params[:page]).per(8)
+    if(user_signed_in?)
+      if current_user.admin == true
+        redirect_to admin_photos_path
+      else
+        @photo=Photo.where(user_id: current_user.followings.ids,sharingmode: true).order(created_at: :desc).page(params[:page]).per(8)
+      end
+    end
   end
 
   def discover

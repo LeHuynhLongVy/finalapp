@@ -3,6 +3,19 @@ class Admin::PhotosController < ApplicationController
     @photo=Photo.all.order(updated_at: :desc).page(params[:page]).per(8)
   end
 
+  def new
+    @photo = current_user.photos.new
+  end
+
+  def create
+    @photo = current_user.photos.new(photo_params)
+    if @photo.save
+      redirect_to edit_admin_photo_path(id: @photo.id)
+    else
+      redirect_to action: :new
+    end
+  end
+
   def edit
     @photo = Photo.find(params[:id])
   end
